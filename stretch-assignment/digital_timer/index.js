@@ -74,10 +74,9 @@ function updateMsTens() {
                     msT.textContent = i; 
                 }, i*10);        
            } else {
-                msT.textContent = 0;
+                msT.textContent = 0;    
                 break;
-            }
-                    
+            }          
         }   
     }
 }
