@@ -4,29 +4,38 @@
   let msH = document.getElementById("msHundreds");
   let msT = document.getElementById("msTens");
   let digitArray = [msT, msH, sOnes, sTens];
-
- 
+  let reset;
 
   window.onload = screenSetup();
-
+ 
   function screenSetup() {
+    createStartButton();
+    createResetButton();
+  }
+
+  function createStartButton() {
     let startButton = document.createElement('button');
     startButton.setAttribute("id", "startButton");
     startButton.textContent = "Start Timer";
-    document.querySelector(".container").appendChild(startButton);
-
-    startButton.addEventListener("click", startTimer);
+    document.querySelector(".timeout_container").appendChild(startButton);
+    startButton.addEventListener("click", (event) => {
+        digitArray.forEach(elem => elem.textContent = 0);
+        reset = false;
+        updateMsTens();
+    });  
   }
 
-  function startTimer() {
-      digitArray.forEach(elem => elem.textContent = 0);
-      updateMsTens();
+  function createResetButton() {
+    let resetButton = document.createElement('button');
+    resetButton.setAttribute("id","resetButton");
+    resetButton.textContent = "Reset Timer";
+    document.querySelector(".timeout_container").appendChild(resetButton);
+    resetButton.addEventListener("click", (event) => {
+        reset = true;
+        digitArray.forEach(elem => elem.textContent = 0);
+    })
   }
-
-  function resetTimer() {
-
-  }
-
+  
  function updateSecondOnes() {
     if(sOnes.textContent < 9) {
         sOnes.textContent ++;
@@ -52,10 +61,19 @@
 
  function updateMsTens() {
     setTimeout(function(){
-        if (msT.textContent == 9) updateMsHundreds();}, 100)
-    if(sTens.textContent < 1){
-        for(let i = 0; i < 10; i++) {
-            setTimeout(function() { msT.textContent = i }, i*10);        
-        } 
-    }   
- }
+        if (msT.textContent == 9 && !reset) 
+        updateMsHundreds();}, 100);
+        if(sTens.textContent < 1){
+            for(let i = 0; i < 10; i++) {
+                if(!reset) {
+                    setTimeout(function() { 
+                        msT.textContent = i; 
+                    }, i*10);        
+                } else {
+                    msT.textContent = 0;
+                    break;
+                }
+                    
+        }   
+    }
+}
