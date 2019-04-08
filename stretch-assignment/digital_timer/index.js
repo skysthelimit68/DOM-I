@@ -31,6 +31,8 @@
     resetButton.textContent = "Reset Timer";
     document.querySelector(".timeout_container").appendChild(resetButton);
     resetButton.addEventListener("click", (event) => {
+       clearTimeout(hundredsTimeout);
+       clearTimeout(mstTimeout);
         reset = true;
         digitArray.forEach(elem => elem.textContent = 0);
     })
@@ -58,21 +60,23 @@
         updateMsTens();
     }
  }
-
- function updateMsTens() {
-    setTimeout(function(){
+let hundredsTimeout;
+let mstTimeout;
+ 
+function updateMsTens() {
+    hundredsTimeout = setTimeout(function(){
         if (msT.textContent == 9 && !reset) 
         updateMsHundreds();}, 100);
-        if(sTens.textContent < 1){
-            for(let i = 0; i < 10; i++) {
-                if(!reset) {
-                    setTimeout(function() { 
-                        msT.textContent = i; 
-                    }, i*10);        
-                } else {
-                    msT.textContent = 0;
-                    break;
-                }
+    if(sTens.textContent < 1){
+        for(let i = 0; i < 10; i++) {
+            if(!reset) {
+                mstTimeout = setTimeout(function() { 
+                    msT.textContent = i; 
+                }, i*10);        
+           } else {
+                msT.textContent = 0;
+                break;
+            }
                     
         }   
     }
