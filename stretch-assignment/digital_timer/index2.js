@@ -11,7 +11,6 @@ let _sTens = document.getElementById("_secondTens");
   function _screenSetup() {
     _createStartButton();
     _createResetButton();
-    
   }
 
   function _createStartButton(){

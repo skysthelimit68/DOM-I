@@ -17,3 +17,12 @@ body {
    margin: 0 30px;
     text-align: center;
 }
+
+@media only screen and (max-width: 600px) {
+  body {
+    flex-direction: column;
+  }
+  .interval_container {
+    margin-top:30px;
+  }
+}

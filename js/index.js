@@ -47,6 +47,25 @@ for(let i = 0; i < navItems.length; i++) {
   navItems[i].textContent = siteContent["nav"]["nav-item-" + (i+1)];
 }
 
+let navParent = document.querySelector("nav");
+let prependItem = document.createElement("a");
+prependItem.textContent = "Prepend Item";
+prependItem.href = "#";
+prependItem.setAttribute("style","color:green;");
+
+let appendItem = document.createElement("a");
+appendItem.textContent = "Append Item";
+appendItem.href = "#";
+appendItem.setAttribute("style", "color:green;");
+
+
+
+navParent.prepend(prependItem);
+navParent.appendChild(appendItem);
+
+navItems.forEach(elem => elem.setAttribute("style", "color: green;"));
+
+
 //setting up cta H1 
 let ctaH1 = document.querySelector(".cta .cta-text h1");
 
