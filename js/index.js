@@ -40,3 +40,109 @@ const siteContent = {
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
+
+//setting all nav items
+let navItems = document.querySelectorAll("nav a");
+for(let i = 0; i < navItems.length; i++) {
+  navItems[i].textContent = siteContent["nav"]["nav-item-" + (i+1)];
+}
+
+let navParent = document.querySelector("nav");
+let prependItem = document.createElement("a");
+prependItem.textContent = "Prepend Item";
+prependItem.href = "#";
+prependItem.setAttribute("style","color:green;");
+
+let appendItem = document.createElement("a");
+appendItem.textContent = "Append Item";
+appendItem.href = "#";
+appendItem.setAttribute("style", "color:green;");
+
+
+
+navParent.prepend(prependItem);
+navParent.appendChild(appendItem);
+
+navItems.forEach(elem => elem.setAttribute("style", "color: green;"));
+
+
+//setting up cta H1 
+let ctaH1 = document.querySelector(".cta .cta-text h1");
+
+//splitting cta H1 into an array w/o spaces
+ctaH1Array = siteContent["cta"]["h1"].split(" ");
+for(let i = 0; i < ctaH1Array.length; i++) {
+  ctaH1.innerText += ctaH1Array[i];
+  ctaH1.innerText += (i == ctaH1Array.length-1)? "": "\r\n";
+}
+
+//setting up button
+let ctaButton = document.querySelector(".cta .cta-text button");
+ctaButton.textContent = siteContent["cta"]["button"];
+
+//setting up cta image
+let ctaImg = document.querySelector("#cta-img");
+ctaImg.setAttribute("src",siteContent["cta"]["img-src"]);
+
+//get an array of key names from siteContent["main-content"]
+let mainContentKeys = Object.getOwnPropertyNames(siteContent["main-content"]);
+
+//get an array of all h4 tags from main-content, and set initial counter
+let mainContentH4 = document.querySelectorAll(".main-content .text-content h4");
+let mainH4Count = 0;
+
+//get an array of all p tags from main-content and set initial counter
+let mainContentContent = document.querySelectorAll(".main-content .text-content p");
+let mainContentCount = 0;
+
+//get an array of all img tags from main-content and set initial counter
+let mainContentImg = document.querySelectorAll(".main-content img");
+let mainImgCount = 0;
+
+//setup loop to iterate each keys in siteContent["main-content"]
+for(let i = 0; i < mainContentKeys.length; i++) {
+  //if the key contains the phrase h4, set h4 at specific mainH4Count to key's value;
+  if(mainContentKeys[i].includes("h4")) {
+    mainContentH4[mainH4Count].innerText = siteContent["main-content"][mainContentKeys[i]];
+    mainH4Count++;
+  }   
+  //if the key contains the phrase content, set p at specific mainContentCount to key's value;
+    else if (mainContentKeys[i].includes("content")) {
+    mainContentContent[mainContentCount].innerText = siteContent["main-content"][mainContentKeys[i]];
+    mainContentCount++;
+  } 
+    //if the key contains the phrase img-src, set img at specific mainContentCount to key's value;
+    else if (mainContentKeys[i].includes("img-src")) {
+    mainContentImg[mainImgCount].setAttribute("src", siteContent["main-content"][mainContentKeys[i]]);
+    mainImgCount++;
+  }
+}
+
+//get an array of key names from siteContent["contact"]
+let contactKeys = Object.getOwnPropertyNames(siteContent["contact"]);
+
+//get an array of all h4 elements from contact and set initial counter
+let contactH4 = document.querySelectorAll(".contact h4");
+let contactH4Count = 0;
+
+//get an array of all p elements from contact and set initial counter
+let contactP = document.querySelectorAll(".contact p");
+let contactPCount = 0;
+
+//setup loop to iterate each in siteContent["contact"]
+for(let i = 0; i < contactKeys.length; i++) {
+  //if the key contains the phrase h4, set h4 at specific contactH4Count to key's value;
+  if(contactKeys[i].includes("h4")){
+    contactH4[contactH4Count].textcontent = siteContent["contact"][contactKeys[i]];
+    contactH4Count++;
+  } 
+    //else set p tag at specific contactPCount to keys' value
+    else {
+    contactP[contactPCount].textContent = siteContent["contact"][contactKeys[i]];
+    contactPCount++;
+  }
+}
+
+//setting up footer;
+let footerCR = document.querySelector("footer p");
+footerCR.textContent = siteContent["footer"]["copyright"];
